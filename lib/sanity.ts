@@ -13,12 +13,12 @@ export const client = createClient({
 
 const builder = ImageUrlBuilder(client);
 
-export const urlFor = (source: any) => {
+export const urlFor = (source: string) => {
   if (!source) return null;
   return builder.image(source);
 };
 
-export function getVideoUrl(assetRef: any) {
+export function getVideoUrl(assetRef: { asset: string }) {
   if (!assetRef?.asset) return null;
 
   const assetUrl = getFileAsset(assetRef.asset, {
@@ -32,7 +32,7 @@ export function getVideoUrl(assetRef: any) {
 }
 
 export async function getMessages() {
-  const posts = await client.fetch(
+  const posts: Message[] = await client.fetch(
     '*[_type == "messages"]',
     {},
     {
