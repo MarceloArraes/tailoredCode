@@ -1,3 +1,5 @@
+import { ArtDecoSvg } from "@/components/ArtDeco";
+import { NavigationBar } from "@/components/NavigationBar";
 import "@/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
@@ -14,7 +16,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+      <body className="bg-gradient-to-b from-background to-foreground dark:from-background dark:to-foreground">
+        <NavigationBar />
+        <ArtDecoSvg>
+          <main>{children}</main>
+        </ArtDecoSvg>
+        {/* </ArtDecoSvg> */}
+        {/* <ArtDecoSvgBottom /> */}
+      </body>
     </html>
   );
 }

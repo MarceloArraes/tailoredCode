@@ -1,3 +1,5 @@
+import { type PortableTextBlock } from "next-sanity";
+
 export interface Asset {
   _type: string;
   asset: {
@@ -9,9 +11,9 @@ export interface Asset {
 export interface simpleProjectCard {
   name: string;
   currentSlug: string;
-  description: any; // PortableText is often dynamically typed, so keep it flexible
+  description: PortableTextBlock[];
   siteImage: Asset;
-  siteIcon?: Asset; // Optional because it may not exist
+  siteIcon?: Asset;
   tecIcon1?: Asset;
   tecIcon2?: Asset;
   tecIcon3?: Asset;
@@ -30,7 +32,7 @@ export interface Profile {
   _rev: string;
   _type: "profile";
   name: string;
-  description: any;
+  description: PortableTextBlock[];
   quote: string;
   profileImage1?: Asset;
   profileImage2?: Asset;

@@ -9,7 +9,7 @@ import { PortableText } from "@portabletext/react";
 
 export const revalidate = 30; // revalidate cache every hour
 
-const fetchProjects = async () => {
+const fetchProjects = async (): Promise<simpleProjectCard[]> => {
   const query = `*[_type=='project'] | order(_createdAt desc){
     name, description, 
       "currentSlug":slug.current,
@@ -19,7 +19,7 @@ const fetchProjects = async () => {
 
   }`;
 
-  const data = await client.fetch(query);
+  const data = await client.fetch<simpleProjectCard[]>(query);
   return data;
 };
 
@@ -32,7 +32,7 @@ export default async function Projects() {
       <div className="mb-8 flex items-center justify-between"></div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {data.map((post, idx) => {
+        {data.map((post: simpleProjectCard, idx) => {
           return (
             <Link
               key={idx}
@@ -55,11 +55,7 @@ export default async function Projects() {
                     {post.techDescription}
                   </p>
                   <PortableText
-                    value={
-                      [
-                        /* array of portable text blocks */
-                      ]
-                    }
+                    value={post?.description}
                     // components={/* optional object of custom components to use */}
                   />
                   {post?.tags?.length > 0 && (
