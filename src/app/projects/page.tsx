@@ -11,13 +11,10 @@ export const revalidate = 30; // revalidate cache every hour
 
 const fetchProjects = async (): Promise<simpleProjectCard[]> => {
   const query = `*[_type=='project'] | order(_createdAt desc){
-    name, description, 
-      "currentSlug":slug.current,
-      siteImage,
-        tags,
-      showcaseVideoFile,
-
-  }`;
+  ...,                  
+  "currentSlug": slug.current,
+  showcaseVideoFile
+}`;
 
   const data = await client.fetch<simpleProjectCard[]>(query);
   return data;

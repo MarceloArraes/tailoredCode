@@ -1,7 +1,7 @@
 import { getFileAsset } from "@sanity/asset-utils";
 import ImageUrlBuilder from "@sanity/image-url";
 import { createClient } from "next-sanity";
-import { type Message } from "./interface";
+import { type Asset, type Message } from "./interface";
 
 export const client = createClient({
   apiVersion: "v2022-03-07",
@@ -13,7 +13,7 @@ export const client = createClient({
 
 const builder = ImageUrlBuilder(client);
 
-export const urlFor = (source: string) => {
+export const urlFor = (source: string | Asset) => {
   if (!source) return null;
   return builder.image(source);
 };

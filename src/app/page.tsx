@@ -1,6 +1,4 @@
 import { AnimatedHeroTitle } from "@/components/AnimatedHeroTitle";
-import { ArtDecoSvg } from "@/components/ArtDeco";
-import { ArtDecoSvgBottom } from "@/components/ArtDecoBottom";
 // import { ArtDecoBackground } from "@/components/ArtDecoBacktround";
 import { SimpleCaroussel } from "@/components/SimpleCaroussel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -14,6 +12,23 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
+const slugs = [
+  "audio-bites",
+  "esbanjanja",
+  "good-beak",
+  "customer-ticket-manager",
+  "task-tracker",
+  "time-capsule",
+  "esports-duo-matchmaking",
+  "good-beak-animal-food-recipes",
+  "my-first-portfolio",
+  "event-platformer",
+  "bem-paggo-form",
+  "web-widget",
+  "nutri-notes",
+  "geocapital-stock-tracker",
+];
+
 export default function HomePage() {
   return (
     <div className="min-h-screen w-full bg-none">
@@ -21,6 +36,12 @@ export default function HomePage() {
 
       {/* <ArtDecoBackground /> */}
       {/* Main Content */}
+      <div className="absolute left-5 h-full w-auto border-2 border-yellow-200"></div>
+      <div className="absolute left-7 h-full w-auto border-2 border-yellow-200"></div>
+      <div className="absolute left-9 h-full w-auto border-2 border-yellow-200"></div>
+      <div className="absolute right-5 h-full w-auto border-2 border-yellow-200"></div>
+      <div className="absolute right-7 h-full w-auto border-2 border-yellow-200"></div>
+      <div className="absolute right-9 h-full w-auto border-2 border-yellow-200"></div>
       <div className="mx-auto max-w-7xl space-y-24 px-4 py-12 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <section className="space-y-6 text-center">
