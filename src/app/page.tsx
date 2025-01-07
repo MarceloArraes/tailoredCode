@@ -1,4 +1,5 @@
 import { AnimatedHeroTitle } from "@/components/AnimatedHeroTitle";
+import { HorizontalCards } from "@/components/HorizontalCards";
 // import { ArtDecoBackground } from "@/components/ArtDecoBacktround";
 import { SimpleCaroussel } from "@/components/SimpleCaroussel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,16 +12,31 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { type simpleProjectCard } from "lib/interface";
+import { client } from "lib/sanity";
+
+export const revalidate = 30; // revalidate cache every hour
+
+const fetchProjects = async (): Promise<simpleProjectCard[]> => {
+  const query = `*[_type=='project'] | order(_createdAt desc){
+    ...,                  
+    "currentSlug": slug.current,
+    showcaseVideoFile
+  }`;
+
+  const data = await client.fetch<simpleProjectCard[]>(query);
+  return data;
+};
 
 const slugs = [
   "audio-bites",
   "esbanjanja",
   "good-beak",
+  "good-beak-animal-food-recipes",
   "customer-ticket-manager",
   "task-tracker",
   "time-capsule",
   "esports-duo-matchmaking",
-  "good-beak-animal-food-recipes",
   "my-first-portfolio",
   "event-platformer",
   "bem-paggo-form",
@@ -29,7 +45,14 @@ const slugs = [
   "geocapital-stock-tracker",
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const data: simpleProjectCard[] = await fetchProjects();
+
+  const solutions = [
+    "good-beak-animal-food-recipes",
+    "customer-ticket-manager",
+    "task-tracker",
+  ];
   return (
     <div className="min-h-screen w-full bg-none">
       {/* Navigation */}
@@ -64,47 +87,35 @@ export default function HomePage() {
             <h2 className="text-center text-3xl font-semibold">
               Building solutions for a variety of problems
             </h2>
-            <SimpleCaroussel />
+            <SimpleCaroussel
+              projects={data.filter((simpleProject) =>
+                solutions.includes(simpleProject.currentSlug),
+              )}
+            />
           </div>
 
-          <div className="flex max-w-2xl flex-1 flex-row">
-            {/* Here goes the texts; */}
-            <h1 className="self-center whitespace-pre-wrap text-4xl font-bold">
-              Latest projects
-            </h1>
-            <div className="ml-auto flex flex-row gap-5">
-              <Card className="border-0 bg-transparent p-2 shadow-none transition hover:translate-x-3">
-                <CardHeader>
-                  Arriving to a new milestone in my career
-                </CardHeader>
-                <CardDescription>description</CardDescription>
-                <CardContent> content</CardContent>
-                <CardFooter>footer April 8, 2024</CardFooter>
-              </Card>
-
-              <Card className="transition hover:translate-x-3">
-                <CardHeader>
-                  Arriving to a new milestone in my career
-                </CardHeader>
-                <CardDescription>description</CardDescription>
-                <CardContent> content</CardContent>
-                <CardFooter>footer April 8, 2024</CardFooter>
-              </Card>
-            </div>
-          </div>
+          <HorizontalCards />
 
           <div className="space-y-8">
             <h2 className="text-center text-3xl font-semibold">
               Creative animations and interactive experiences
             </h2>
-            <SimpleCaroussel />
+            <SimpleCaroussel
+              projects={data.filter((simpleProject) =>
+                solutions.includes(simpleProject.currentSlug),
+              )}
+            />
           </div>
 
           <div className="space-y-8">
             <h2 className="text-center text-3xl font-semibold">
               Fully customizable themes and styling
             </h2>
-            <SimpleCaroussel />
+            <SimpleCaroussel
+              projects={data.filter((simpleProject) =>
+                solutions.includes(simpleProject.currentSlug),
+              )}
+            />
           </div>
         </section>
 
